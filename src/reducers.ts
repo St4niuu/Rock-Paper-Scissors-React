@@ -10,12 +10,12 @@ export const scoreReducer = createReducer(scoreInitialState, (builder) => {
 		.addCase(setScore, (state) => {
 			return ++state
 		})
-		.addCase(resetScore, (state) => {
+		.addCase(resetScore, () => {
 			return scoreInitialState
 		})
 })
 
-type PickReducerType = {
+export type PickStateType = {
 	user: string | null
 	computer: string | null
 }
@@ -23,7 +23,7 @@ type PickReducerType = {
 const pickInitalState = {
 	user: null,
 	computer: null,
-} as PickReducerType
+} as PickStateType
 
 export const setUserPick = createAction('SET_USER', (pick) => {
 	return {
@@ -45,7 +45,7 @@ export const pickReducer = createReducer(pickInitalState, (builder) => {
 		.addCase(setComputerPick, (state, action) => {
 			return { ...state, computer: action.payload }
 		})
-		.addCase(resetPicks, (state, action) => {
+		.addCase(resetPicks, () => {
 			return pickInitalState
 		})
 })
