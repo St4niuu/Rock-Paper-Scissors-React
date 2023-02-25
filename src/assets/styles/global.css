@@ -46,3 +46,9 @@
 		@apply bg-gradient-to-t from-spockFrom to-spockTo;
 	}
 }
+
+@layer utilities {
+	.item-shadow {
+		@apply shadow-[inset_0_2px_0_1.5px_lightGray];
+	}
+}

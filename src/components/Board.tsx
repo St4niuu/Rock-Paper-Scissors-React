@@ -19,7 +19,7 @@ function Board(props: { setUserPick: (pick: string) => any }): JSX.Element {
 							}}
 							onClick={() => props.setUserPick(element.name)}
 						>
-							<div className='w-full h-full bg-white grid place-items-center rounded-[50%]'>
+							<div className='w-full h-full bg-white grid place-items-center item-shadow rounded-[50%]'>
 								<img
 									className='w-8 h-8'
 									src={`/icon-${element.name}.svg`}
