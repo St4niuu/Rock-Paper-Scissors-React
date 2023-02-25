@@ -12,7 +12,7 @@ function Board(props: { setUserPick: (pick: string) => any }): JSX.Element {
 					return (
 						<div
 							key={index}
-							className={`w-20 h-20 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] ${element.name}-styling`}
+							className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] ${element.name}-styling`}
 							style={{
 								top: element.top,
 								left: element.left,
@@ -21,7 +21,7 @@ function Board(props: { setUserPick: (pick: string) => any }): JSX.Element {
 						>
 							<div className='w-full h-full bg-white grid place-items-center item-shadow rounded-[50%]'>
 								<img
-									className='w-8 h-8'
+									className='w-10 h-10'
 									src={`/icon-${element.name}.svg`}
 									alt={`${element.name}-icon`}
 								/>
