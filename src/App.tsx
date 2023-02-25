@@ -3,6 +3,7 @@ import './assets/styles/global.css'
 import configureStore from './store'
 import { Provider } from 'react-redux'
 import Score from './components/Score'
+import Board from './components/Board'
 
 export default function App(): JSX.Element {
 	const store = configureStore()
@@ -10,6 +11,7 @@ export default function App(): JSX.Element {
 	return (
 		<Provider store={store}>
 			<Score />
+			<Board />
 		</Provider>
 	)
 }

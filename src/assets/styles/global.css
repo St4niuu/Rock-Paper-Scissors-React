@@ -19,11 +19,30 @@
 		height: 100%;
 		font-size: 16px;
 		overflow-x: hidden;
+		@apply flex flex-col gap-28;
 	}
 	html {
 		@apply font-barlow;
 	}
 	#root {
 		@apply bg-gradient-to-t from-backgroundFrom to-backgroundTo flex flex-col items-center p-8;
+	}
+}
+
+@layer components {
+	.scissors-styling {
+		@apply bg-gradient-to-t from-scissorsFrom to-scissorsTo;
+	}
+	.paper-styling {
+		@apply bg-gradient-to-t from-paperFrom to-paperTo;
+	}
+	.rock-styling {
+		@apply bg-gradient-to-t from-rockFrom to-rockTo;
+	}
+	.lizard-styling {
+		@apply bg-gradient-to-t from-lizardFrom to-lizardTo;
+	}
+	.spock-styling {
+		@apply bg-gradient-to-t from-spockFrom to-spockTo;
 	}
 }

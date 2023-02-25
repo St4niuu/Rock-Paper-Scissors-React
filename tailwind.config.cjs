@@ -12,8 +12,8 @@ module.exports = {
 				rockTo: 'hsl(349, 70%, 56%)',
 				lizardFrom: 'hsl(261, 73%, 60%)',
 				lizardTo: 'hsl(261, 72%, 63%)',
-				cyanFrom: 'hsl(189, 59%, 53%)',
-				cyanTo: 'hsl(189, 58%, 57%)',
+				spockFrom: 'hsl(189, 59%, 53%)',
+				spockTo: 'hsl(189, 58%, 57%)',
 				darkText: 'hsl(229, 25%, 31%)',
 				scoreText: 'hsl(229, 64%, 46%)',
 				headerOutline: 'hsl(217, 16%, 45%)',
@@ -33,5 +33,12 @@ module.exports = {
 			lg: '968px',
 		},
 	},
+	safelist: [
+		'scissors-styling',
+		'paper-styling',
+		'rock-styling',
+		'lizard-styling',
+		'spock-styling',
+	],
 	plugins: [],
 }
