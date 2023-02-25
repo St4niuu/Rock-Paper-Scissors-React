@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { boardItems } from '../assets/items'
+import { setUserPick } from '../reducers'
 
-function Board(): JSX.Element {
+function Board(props: { setUserPick: (pick: string) => any }): JSX.Element {
 	return (
 		<div className='w-full min-w-[250px] flex justify-center'>
 			<div className='w-[65%] relative'>
@@ -16,6 +17,7 @@ function Board(): JSX.Element {
 								top: element.top,
 								left: element.left,
 							}}
+							onClick={() => props.setUserPick(element.name)}
 						>
 							<div className='w-full h-full bg-white grid place-items-center rounded-[50%]'>
 								<img
@@ -32,4 +34,8 @@ function Board(): JSX.Element {
 	)
 }
 
-export default connect(undefined, undefined)(Board)
+const mapDispatchToProps = (dispatch: any) => ({
+	setUserPick: (pick: string) => dispatch(setUserPick(pick)),
+})
+
+export default connect(undefined, mapDispatchToProps)(Board)
