@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { boardItems } from '../assets/items'
-import { setUserPick } from '../reducers'
+import { setComputerPick, setScore, setUserPick } from '../reducers'
 import { motion, AnimatePresence } from 'framer-motion'
 import BoardItem from './BoardItem'
+import calculateScore from '../functions/calculateScore'
 
 function Board(props: {
 	user: string
+	computer: string
 	setUserPick: (pick: string) => any
+	setComputerPick: (pick: string) => any
+	setScore: () => any
 }): JSX.Element {
 	const [drawnItem, setDrawnItem]: [
+		string,
+		React.Dispatch<React.SetStateAction<string>>
+	] = useState('')
+	const [isDrawn, setIsDrawn]: [
+		boolean,
+		React.Dispatch<React.SetStateAction<boolean>>
+	] = useState(false)
+	const [result, setResult]: [
 		string,
 		React.Dispatch<React.SetStateAction<string>>
 	] = useState('')
@@ -32,10 +44,29 @@ function Board(props: {
 				}, 200)
 				setTimeout(() => {
 					clearInterval(drawItem)
+					setIsDrawn(true)
 				}, 5000)
 			}, 1000)
 		}
 	}, [user])
+
+	useEffect(() => {
+		if (isDrawn) {
+			props.setComputerPick(drawnItem)
+		}
+	}, [isDrawn])
+
+	useEffect(() => {
+		if (props.computer) {
+			setResult(calculateScore(props.user, props.computer))
+		}
+	}, [props.computer])
+
+	useEffect(() => {
+		if (result === 'win') {
+			props.setScore()
+		}
+	}, [result])
 
 	return (
 		<div className='w-full min-w-[250px] flex justify-center'>
@@ -50,7 +81,9 @@ function Board(props: {
 						return (
 							<motion.div
 								key={element.name}
-								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] ${element.name}-styling`}
+								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] transition-shadow duration-1000 delay-500 ${
+									element.name
+								}-styling ${user && result === 'win' ? 'winner-shadow' : ''}`}
 								style={{
 									top: element.top,
 									left: element.left,
@@ -82,7 +115,9 @@ function Board(props: {
 					>
 						{drawnItem && (
 							<motion.div
-								className={`w-24 h-24 p-2 rounded-[50%] ${drawnItem}-styling`}
+								className={`w-24 h-24 p-2 rounded-[50%] ${drawnItem}-styling transition-shadow duration-1000 delay-500 ${
+									user && result === 'loss' ? 'winner-shadow' : ''
+								}`}
 							>
 								<BoardItem element={drawnItem} />
 							</motion.div>
@@ -96,9 +131,11 @@ function Board(props: {
 
 const mapDispatchToProps = (dispatch: any) => ({
 	setUserPick: (pick: string) => dispatch(setUserPick(pick)),
+	setComputerPick: (pick: string) => dispatch(setComputerPick(pick)),
+	setScore: () => dispatch(setScore()),
 })
 
 export default connect(
-	(state: any) => ({ user: state.picks.user }),
+	(state: any) => ({ user: state.picks.user, computer: state.picks.computer }),
 	mapDispatchToProps
 )(Board)
