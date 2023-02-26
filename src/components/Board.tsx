@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { boardItems } from '../assets/items'
@@ -92,8 +93,17 @@ function Board(props: {
 								animate={
 									user
 										? {
-												transform: 'translate(-50%, -50%) scale(1.25)',
-												top: '50%',
+												transform: `translate(-50%, -50%) ${(() => {
+													switch (result) {
+														case 'win':
+															return 'scale(1.35)'
+														case 'loss':
+															return 'scale(1.15)'
+														default:
+															return 'scale(1.25)'
+													}
+												})()}`,
+												top: '25%',
 												left: 0,
 										  }
 										: {}
@@ -108,15 +118,26 @@ function Board(props: {
 				</AnimatePresence>
 				{user && (
 					<motion.div
-						className='w-24 h-24 bg-gray-900 absolute top-[50%] left-[100%] rounded-[50%]'
+						className='w-24 h-24 bg-gray-900 absolute top-[25%] left-[100%] rounded-[50%]'
 						initial={{ transform: 'translate(100%, -50%) scale(0)' }}
-						animate={{ transform: 'translate(-50%, -50%) scale(1.25)' }}
+						animate={{
+							transform: `translate(-50%, -50%) ${(() => {
+								switch (result) {
+									case 'loss':
+										return 'scale(1.35)'
+									case 'win':
+										return 'scale(1.15)'
+									default:
+										return 'scale(1.25)'
+								}
+							})()}`,
+						}}
 						transition={{ duration: 0.5 }}
 					>
 						{drawnItem && (
 							<motion.div
-								className={`w-24 h-24 p-2 rounded-[50%] ${drawnItem}-styling transition-shadow duration-1000 delay-500 ${
-									user && result === 'loss' ? 'winner-shadow' : ''
+								className={`w-24 h-24 p-2 rounded-[50%] transition-shadow duration-1000 delay-500 ${drawnItem}-styling ${
+									result === 'loss' ? 'winner-shadow' : ''
 								}`}
 							>
 								<BoardItem element={drawnItem} />
