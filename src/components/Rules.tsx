@@ -9,7 +9,7 @@ export default function Rules(): JSX.Element {
 	return (
 		<>
 			<div
-				className='w-fit h-fit text-white uppercase font-heavy px-8 py-1 border rounded md:absolute md:bottom-[5%] md:right-[2.5%]'
+				className='w-fit h-fit text-white uppercase font-heavy px-8 py-1 border rounded cursor-pointer md:absolute md:bottom-[5%] md:right-[2.5%]'
 				onClick={() => setIsDisplayed(!isDisplayed)}
 			>
 				Rules
@@ -24,7 +24,7 @@ export default function Rules(): JSX.Element {
 				</div>
 				<img src='/image-rules-bonus.svg' alt='rules' />
 				<img
-					className='mt-8'
+					className='mt-8 cursor-pointer'
 					src='/close.svg'
 					alt='close-rules'
 					onClick={() => setIsDisplayed(!isDisplayed)}

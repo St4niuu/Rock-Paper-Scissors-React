@@ -83,9 +83,11 @@ function Board(props: {
 						return (
 							<motion.div
 								key={element.name}
-								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] transition-shadow duration-1000 delay-500 md:w-44 md:h-44 md:p-4 ${
-									element.name
-								}-styling ${user && result === 'win' ? 'winner-shadow' : ''}`}
+								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] transition-shadow duration-1000 delay-500 ${
+									!user ? 'cursor-pointer' : ''
+								} md:w-44 md:h-44 md:p-4 ${element.name}-styling ${
+									user && result === 'win' ? 'winner-shadow' : ''
+								}`}
 								style={{
 									top: element.top,
 									left: element.left,
@@ -188,7 +190,7 @@ function Board(props: {
 							})()}
 						</div>
 						<div
-							className='text-backgroundFrom bg-white text-[50%] px-16 py-4 rounded md:w-[50%]'
+							className='text-backgroundFrom bg-white text-[50%] px-16 py-4 rounded cursor-pointer md:w-[50%]'
 							onClick={() => {
 								setDrawnItem('')
 								setIsDrawn(false)
