@@ -28,9 +28,8 @@ module.exports = {
 		fontFamily: {
 			barlow: ['Barlow Semi Condensed', 'sans-serif'],
 		},
-		screen: {
+		screens: {
 			md: '620px',
-			lg: '968px',
 		},
 	},
 	safelist: [

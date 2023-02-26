@@ -9,7 +9,7 @@ export default function Rules(): JSX.Element {
 	return (
 		<>
 			<div
-				className='w-fit h-fit text-white uppercase font-heavy px-8 py-1 border rounded'
+				className='w-fit h-fit text-white uppercase font-heavy px-8 py-1 border rounded md:absolute md:bottom-[5%] md:right-[2.5%]'
 				onClick={() => setIsDisplayed(!isDisplayed)}
 			>
 				Rules

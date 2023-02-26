@@ -71,7 +71,7 @@ function Board(props: {
 	}, [result])
 
 	return (
-		<div className='w-full min-w-[250px] flex justify-center'>
+		<div className='w-full min-w-[250px] flex justify-center md:min-w-[500px] md:max-w-[700px]'>
 			<div className='w-[65%] relative'>
 				<img
 					className={`w-full ${user ? 'invisible' : ''}`}
@@ -83,7 +83,7 @@ function Board(props: {
 						return (
 							<motion.div
 								key={element.name}
-								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] transition-shadow duration-1000 delay-500 ${
+								className={`w-24 h-24 p-2 absolute translate-x-[-50%] translate-y-[-50%] rounded-[50%] transition-shadow duration-1000 delay-500 md:w-44 md:h-44 md:p-4 ${
 									element.name
 								}-styling ${user && result === 'win' ? 'winner-shadow' : ''}`}
 								style={{
@@ -104,7 +104,9 @@ function Board(props: {
 															return 'scale(1.25)'
 													}
 												})()}`,
-												top: '5%',
+												top: `${
+													matchMedia('(min-width: 620px)') ? '35%' : '5%'
+												}`,
 												left: 0,
 										  }
 										: {}
@@ -115,7 +117,7 @@ function Board(props: {
 								<BoardItem element={element.name} />
 								{user && (
 									<motion.div
-										className='w-full h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%]'
+										className='w-full h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%] md:top-[-35%]'
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										transition={{ delay: 1 }}
@@ -129,7 +131,7 @@ function Board(props: {
 				</AnimatePresence>
 				{user && (
 					<motion.div
-						className='w-24 h-24 bg-gray-900 absolute top-[5%] left-[100%] rounded-[50%]'
+						className='w-24 h-24 bg-gray-900 absolute top-[5%] left-[100%] rounded-[50%] md:w-44 md:h-44 md:top-[35%]'
 						initial={{ transform: 'translate(100%, -50%) scale(0)' }}
 						animate={{
 							transform: `translate(-50%, -50%) ${(() => {
@@ -149,12 +151,12 @@ function Board(props: {
 							<motion.div
 								className={`w-24 h-24 p-2 rounded-[50%] transition-shadow duration-1000 delay-500 ${drawnItem}-styling ${
 									result === 'loss' ? 'winner-shadow' : ''
-								}`}
+								} md:w-full h-full md:p-4`}
 							>
 								<BoardItem element={drawnItem} />
 								{user && (
 									<motion.div
-										className='w-[150%] h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%]'
+										className='w-[150%] h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%] md:top-[-35%]'
 										initial={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										transition={{ delay: 0.5 }}
@@ -168,7 +170,7 @@ function Board(props: {
 				)}
 				{result && (
 					<motion.div
-						className='w-full h-fit text-white text-[200%] text-center uppercase font-heavy flex flex-col gap-y-2 absolute top-[85%]'
+						className='w-full h-fit text-white text-[200%] text-center uppercase font-heavy flex flex-col items-center gap-y-2 absolute top-[85%]'
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 1 }}
@@ -186,7 +188,7 @@ function Board(props: {
 							})()}
 						</div>
 						<div
-							className='text-backgroundFrom bg-white text-[50%] px-16 py-4 rounded'
+							className='text-backgroundFrom bg-white text-[50%] px-16 py-4 rounded md:w-[50%]'
 							onClick={() => {
 								setDrawnItem('')
 								setIsDrawn(false)
