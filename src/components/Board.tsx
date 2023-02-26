@@ -107,7 +107,9 @@ function Board(props: {
 													}
 												})()}`,
 												top: `${
-													matchMedia('(min-width: 620px)') ? '35%' : '5%'
+													matchMedia('(min-width: 620px)').matches
+														? '35%'
+														: '5%'
 												}`,
 												left: 0,
 										  }
