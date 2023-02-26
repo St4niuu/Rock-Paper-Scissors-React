@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { boardItems } from '../assets/items'
-import { setComputerPick, setScore, setUserPick } from '../reducers'
+import { resetPicks, setComputerPick, setScore, setUserPick } from '../reducers'
 import { motion, AnimatePresence } from 'framer-motion'
 import BoardItem from './BoardItem'
 import calculateScore from '../functions/calculateScore'
@@ -12,6 +12,7 @@ function Board(props: {
 	computer: string
 	setUserPick: (pick: string) => any
 	setComputerPick: (pick: string) => any
+	resetPicks: () => any
 	setScore: () => any
 }): JSX.Element {
 	const [drawnItem, setDrawnItem]: [
@@ -103,7 +104,7 @@ function Board(props: {
 															return 'scale(1.25)'
 													}
 												})()}`,
-												top: '25%',
+												top: '5%',
 												left: 0,
 										  }
 										: {}
@@ -112,13 +113,23 @@ function Board(props: {
 								transition={{ duration: 0.5 }}
 							>
 								<BoardItem element={element.name} />
+								{user && (
+									<motion.div
+										className='w-full h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%]'
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										transition={{ delay: 1 }}
+									>
+										You picked
+									</motion.div>
+								)}
 							</motion.div>
 						)
 					})}
 				</AnimatePresence>
 				{user && (
 					<motion.div
-						className='w-24 h-24 bg-gray-900 absolute top-[25%] left-[100%] rounded-[50%]'
+						className='w-24 h-24 bg-gray-900 absolute top-[5%] left-[100%] rounded-[50%]'
 						initial={{ transform: 'translate(100%, -50%) scale(0)' }}
 						animate={{
 							transform: `translate(-50%, -50%) ${(() => {
@@ -141,8 +152,50 @@ function Board(props: {
 								}`}
 							>
 								<BoardItem element={drawnItem} />
+								{user && (
+									<motion.div
+										className='w-[150%] h-fit text-white text-center uppercase font-heavy absolute top-[125%] left-[50%] translate-x-[-50%]'
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										transition={{ delay: 0.5 }}
+									>
+										The house picked
+									</motion.div>
+								)}
 							</motion.div>
 						)}
+					</motion.div>
+				)}
+				{result && (
+					<motion.div
+						className='w-full h-fit text-white text-[200%] text-center uppercase font-heavy flex flex-col gap-y-2 absolute top-[85%]'
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 1 }}
+					>
+						<div>
+							{(() => {
+								switch (result) {
+									case 'win':
+										return 'You win'
+									case 'loss':
+										return 'You lose'
+									default:
+										return 'Draw'
+								}
+							})()}
+						</div>
+						<div
+							className='text-backgroundFrom bg-white text-[50%] px-16 py-4 rounded'
+							onClick={() => {
+								setDrawnItem('')
+								setIsDrawn(false)
+								setResult('')
+								props.resetPicks()
+							}}
+						>
+							Play again
+						</div>
 					</motion.div>
 				)}
 			</div>
@@ -153,6 +206,7 @@ function Board(props: {
 const mapDispatchToProps = (dispatch: any) => ({
 	setUserPick: (pick: string) => dispatch(setUserPick(pick)),
 	setComputerPick: (pick: string) => dispatch(setComputerPick(pick)),
+	resetPicks: () => dispatch(resetPicks()),
 	setScore: () => dispatch(setScore()),
 })
 
